@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Halcyon</title>
+        <link rel="stylesheet" href="dist/css/common.bundle.css" />
+        <link rel="stylesheet" href="dist/css/countries.bundle.css" />
+    </head>
+    <body style="padding-top:70px;">
+        <div class="wrapper">
+            <div>
+                <header class="p-3 bg-dark text-white fixed-top">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3 text-center">
+                                <span class="lead">Countries Data</span>
+                            </div>
+                            <div class="col-md-3 text-right">
+                                <button
+                                    data-toggle="modal"
+                                    data-target="#filterModal"
+                                    class="btn btn-danger text-uppercase"
+                                >
+                                    Filters
+                                </button>
+                                <button
+                                    id="reserFilter"
+                                    class="btn btn-warning text-white text-uppercase"
+                                >
+                                    Reset Filters
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+                <section>
+                    <div class="container">
+                        <div class="progress-bar-container">
+                            <div class="progress" style="height: 10px;">
+                                <div
+                                    class="progress-bar"
+                                    role="progressbar"
+                                    style="width: 0%;"
+                                    aria-valuenow="0"
+                                    aria-valuemin="0"
+                                    aria-valuemax="100"
+                                ></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row" id="countriesRow"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <div
+            class="modal fade"
+            id="filterModal"
+            tabindex="-1"
+            role="dialog"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">
+                            Filter by
+                        </h5>
+                        <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Currency</label>
+                                    <select
+                                        id="ddlCurrenciesCodes"
+                                        class="custom-select"
+                                    >
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Calling Code</label>
+                                    <select
+                                        id="ddlCallingCodes"
+                                        class="custom-select"
+                                    >
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="dist/js/common.bundle.js"></script>
+        <script src="dist/js/countries.bundle.js"></script>
+    </body>
+</html>

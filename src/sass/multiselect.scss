@@ -1,0 +1,137 @@
+.card-body{
+    box-shadow: 0 0 10px red;
+}
+
+.multiselect-container > li > a > label{
+    padding: 3px 15px 3px 15px;
+}
+
+/*----- Normal checkbox ------*/
+.checkbox-custom {
+    padding-left: 0px;
+}
+
+.checkbox-custom label {
+    display: inline-block;
+    position: relative;
+	padding-left: 24px;
+	cursor: pointer;
+	margin-bottom: 0;
+	line-height: 1;
+}
+
+.checkbox-custom.w-out-lbl label span{
+	width: 0;
+	display: block;
+	opacity: 0;
+	visibility: hidden;
+}
+.checkbox-custom.w-out-lbl label{
+	padding-left: 14px;
+}
+
+.checkbox-custom label::before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+	width: 14px;
+    height: 14px;
+    top: 0px;
+    // margin-top: -7px;
+    left: 0;
+    margin-left: 0;
+    border: 1px solid #D7D7D7;
+    border-radius: 2px;
+    background-color: #fff;
+    -webkit-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+    -o-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+    transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.checkbox-custom label::after {
+    display: inline-block;
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    left: 0;
+	top: 0px;
+	// margin-top: -7px;
+    margin-left: 0;
+    padding-left: 0px;
+	padding-top: 0px;
+	border-radius: 2px;
+}
+
+.checkbox-custom input[type="checkbox"] {
+	opacity: 0;
+	display: none;
+}
+
+.checkbox-custom input[type="checkbox"]:focus+label::before {
+    outline: none;
+}
+
+.checkbox-custom input[type="checkbox"]:checked+label::after {
+	content: "";
+	background-color: #2A95E6;
+}
+
+.checkbox-custom input[type="checkbox"]:disabled+label {
+    opacity: 0.65;
+}
+
+.checkbox-custom input[type="checkbox"]:disabled+label::before {
+    background-color: #eeeeee;
+    cursor: not-allowed;
+}
+
+.checkbox-custom.checkbox-inline {
+	margin-top: 0;
+	display: inline-block;
+}
+
+
+//
+// .input-group {
+//     position: relative;
+//     display: table;
+//     border-collapse: separate;
+// }
+// .input-group-addon {
+//     padding: 6px 12px;
+//     font-size: 14px;
+//     font-weight: 400;
+//     line-height: 1;
+//     color: #555;
+//     text-align: center;
+//     background-color: #eee;
+//     border: 1px solid #ccc;
+//     border-radius: 4px;
+// }
+// .input-group .form-control, .input-group-addon, .input-group-btn {
+//     display: table-cell;
+// }
+// .input-group-addon, .input-group-btn {
+//     width: 1%;
+//     white-space: nowrap;
+//     vertical-align: middle;
+// }
+// .input-group .form-control:first-child, .input-group-addon:first-child, .input-group-btn:first-child>.btn, .input-group-btn:first-child>.btn-group>.btn, .input-group-btn:first-child>.dropdown-toggle, .input-group-btn:last-child>.btn-group:not(:last-child)>.btn, .input-group-btn:last-child>.btn:not(:last-child):not(.dropdown-toggle) {
+//     border-top-right-radius: 0;
+//     border-bottom-right-radius: 0;
+// }
+// .input-group-addon:first-child {
+//     border-right: 0;
+// }
+
+// .input-group .form-control {
+//     position: relative;
+//     z-index: 2;
+//     float: left;
+//     width: 100%;
+//     margin-bottom: 0;
+// }
+// .input-group-addon:last-child {
+//     border-left: 0;
+// }
+// 

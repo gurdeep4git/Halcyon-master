@@ -1,0 +1,59 @@
+{{#each this}}
+    <div class="col-md-3">
+        <div class="box border shadow bg-white">
+            <div>
+                <img class="img-fluid img-thumbnail" src={{flag}} alt="flag" />
+            </div>
+            <div class="m-3">
+                {{!-- Helper method for name and capital concat
+                    //func - namecapital
+                    //params - name, capital
+                <div>
+                    {{namecapital name capital}}
+                </div>
+                 --}}
+                <div>
+                    Name: <strong>{{name}}</strong>
+                </div>
+                <div>
+                    {{#if this.borders}}
+                        Borders: {{commaSeprated this.borders}}
+                        {{!-- Borders : {{#each this.borders}}<span>{{this}}</span>{{/each}} --}}
+                    {{else}}    
+                        Borders : <span>No borders</span>
+                    {{/if}}    
+                </div>
+                <div>
+                    {{#if this.languages}}
+                       Languages: {{getLanguageName this.languages}}
+                    {{else}}
+                        Language: <span> No language</span>
+                    {{/if}}
+                </div>
+                <div>
+                    Capital: <strong>{{capital}}</strong>
+                </div>
+                <div>
+                    Region: <strong>{{region}}</strong>
+                </div>
+                <div>
+                    Population: <strong>{{population}}</strong>
+                </div>
+                <div>
+                    {{#if this.callingCodes}}
+                    Calling Codes: {{#each this.callingCodes}}<strong>{{this}}</strong>{{/each}}
+                    {{else}}
+                    Calling Codes: <span> - </span>
+                    {{/if}}    
+                </div>
+                <div>
+                    {{#if this.currencies}}
+                        Currencies: {{#each this.currencies}}<strong>{{this.name}} ({{this.symbol}})</strong>{{/each}}
+                    {{else}}
+                        Currencies: <span>No currencies</span>
+                    {{/if}}    
+                </div>
+            </div>
+        </div>
+    </div>
+{{/each}}

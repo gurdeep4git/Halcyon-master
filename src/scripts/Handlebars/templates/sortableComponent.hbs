@@ -1,0 +1,18 @@
+{{#each this}}
+<div class="card container" id=comment_{{id}}>
+    <div class="row card-body">
+        <div class="col-1">
+            <i class="fa fa-arrows handle" aria-hidden="true"></i>
+            {{id}}
+        </div>
+        <div class="col-10">
+            <h4>{{name}}</h4>
+            <p>{{body}}</p>
+            <small class="text-right"><b>{{email}}</b></small>
+        </div>
+        <div class="col-1 text-right">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+        </div>
+    </div>
+</div>
+{{/each}}

@@ -1,0 +1,1 @@
+console.log("this is from common file i.e main file");

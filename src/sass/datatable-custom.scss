@@ -1,0 +1,29 @@
+td.highlight{
+    background-color: #333;
+    color: #fff;
+}
+div.slider {
+    display: none;
+}
+table.dataTable tbody td.no-padding {
+    padding: 0;
+}
+
+td.d-details-control a.trigger:before {
+    font-family: FontAwesome;
+    content: "\f055";
+    display: inline-block;
+    padding-right: 3px;
+    vertical-align: middle;
+}
+ 
+tr.shown td.d-details-control a.trigger:before {
+    font-family: FontAwesome;
+    content: "\f056";
+    display: inline-block;
+    padding-right: 3px;
+    vertical-align: middle;
+}
+#table1_length .custom-select{
+    background: none !important;
+}
