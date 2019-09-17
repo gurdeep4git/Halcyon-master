@@ -3,22 +3,22 @@ import "../Utilities/JqueryUI/jquery-ui.js";
 import { IdHelper } from "../Utilities/id-helper";
 
 export class SortableUI {
-    private readonly $sorttableContainer = $("#sortableContainer");
+    private readonly $sortableContainer = $("#sortableContainer");
     private updatedItems: number[] = [];
 
     initSortable() {
         const sortableOptions = {
             handle: ".handle",
             containment: "#sortableContainer",
-            revert: true,
+            revert: false,
             update: (_event: Event, _ui: Object) => this.updateHandler()
         };
 
-        this.$sorttableContainer.sortable(sortableOptions);
+        this.$sortableContainer.sortable(sortableOptions);
     }
 
     private updateHandler() {
-        var order = this.$sorttableContainer.sortable("toArray");
+        var order = this.$sortableContainer.sortable("toArray", { attribute: "sort-order" });
 
         this.updatedItems.length = 0;
 
@@ -27,6 +27,6 @@ export class SortableUI {
             this.updatedItems.push(id);
         }
 
-        console.log(this.updatedItems);
+        localStorage.setItem("sortedItems", JSON.stringify(this.updatedItems));
     }
 }
