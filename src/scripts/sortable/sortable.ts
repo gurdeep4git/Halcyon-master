@@ -7,6 +7,11 @@ import "../../sass/sortable.scss";
 import * as sortableComponent from "../Handlebars/templates/sortableComponent.hbs";
 import * as noDataComponent from "../Handlebars/templates/noDataComponent.hbs";
 
+enum SortType {
+    Ascending = 1,
+    Descending = 2
+}
+
 class Sortable {
 
     private readonly MIN_CHAR_FOR_SEARCH: number = 3;
@@ -60,7 +65,59 @@ class Sortable {
 
     private bindEvents(): void {
         $("#search").keyup((e) => this.searchMethod());
+        $("#sortNumeric").click(e => this.sortNumeric($(e.target)));
+        //$("#sortAlpha").click(e => this.sortAlpha($(e.target)));
     }
+
+    private sortNumeric($element: JQuery<HTMLElement>) {
+        const $currentSortIcon = $element.find(".icon");
+        $currentSortIcon.toggleClass("fa-sort-numeric-desc fa-sort-numeric-asc");
+        let sortType = $currentSortIcon.hasClass("fa-sort-numeric-desc") ? SortType.Descending : SortType.Ascending;
+        const sortedResult = this.performSort($(".card"), sortType);
+        const sortedComments = [...sortedResult];
+        this.repaintUI(sortedComments);
+    }
+
+    // private sortAlpha($element: JQuery<HTMLElement>) {
+    //     const $currentSortIcon = $element.find(".icon");
+    //     $currentSortIcon.toggleClass("fa-sort-alpha-desc fa-sort-alpha-asc");
+    //     let sortType = $currentSortIcon.hasClass("fa-sort-alpha-desc") ? SortType.Descending : SortType.Ascending;
+    //     const sortedResult = this.performSortAlpha($(".card"), sortType);
+    //     const sortedComments = [...sortedResult];
+    //     this.repaintUI(sortedComments);
+    // }
+
+    private repaintUI(sortedComments: any[]) {
+        let html: any[] = [];
+        $.each(sortedComments, (_, comment) => {
+            html.push(comment.outerHTML);
+        });
+        $("#sortableContainer").html(html.join(''));
+    }
+
+    private performSort($elementsToSort: JQuery<HTMLElement>, sortType: SortType) {
+        //@ts-ignore
+        return $elementsToSort.sort((a, b) => {
+            if (sortType === SortType.Ascending) {
+                return +$(a).attr('sort-order') - +$(b).attr('sort-order');
+            } else {
+                return +$(b).attr('sort-order') - +$(a).attr('sort-order');
+            }
+        })
+    }
+
+    // private performSortAlpha($elementsToSort: JQuery<HTMLElement>, sortType: SortType) {
+    //     //@ts-ignore
+    //     return $elementsToSort.sort((a, b) => {
+    //         console.log(a);
+    //         if (sortType === SortType.Ascending) {
+    //             return +$(a).find("h4").text() - +$(b).find("h4").text();
+    //         } else {
+    //             return +$(b).find("h4").text() - +$(a).find("h4").text();
+    //         }
+    //     })
+    // }
+
 
     private searchMethod() {
         let value = (document.getElementById("search") as HTMLInputElement).value;
