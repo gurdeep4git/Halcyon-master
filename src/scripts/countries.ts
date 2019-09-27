@@ -10,9 +10,12 @@ import "bootstrap/js/dist/modal";
 //import {HelperFunctions} from "./Handlebars/helpers/getLanguageName";
 
 class Countries {
+
     private countries: {}[];
     private currencyCodes: string[];
     private callingCodes: string[];
+
+    private isDataLoaded: boolean = false;
 
     constructor() {
         //  debugger;
@@ -31,7 +34,24 @@ class Countries {
 
         this.init();
         this.bindEvents();
+        this.startProgress();
     }
+
+    private startProgress() {
+        let width = 0;
+        let interval = setInterval(() => {
+            width += 10;
+            if (width <= 80) {
+                $(".progress .progress-bar").animate({ width: `${width}%` }, 1000);
+            }
+            if (this.isDataLoaded) {
+                $(".progress .progress-bar").animate({ width: "100%" }, 1000);
+                clearInterval(interval);
+                $(".loader-overlay").hide();
+            }
+        }, 1000);
+    }
+
     private init() {
         this.getCountriesData();
     }
@@ -50,31 +70,9 @@ class Countries {
         this.init();
     }
     private getCountriesData() {
-        $.ajax({
-            url: "https://restcountries.eu/rest/v2/all",
-            dataType: "json",
-            type: "GET",
-            async: true,
-            xhr: () => {
-                var xhr = new XMLHttpRequest();
-
-                //Download Progress
-                xhr.addEventListener(
-                    "progress",
-                    evt => {
-                        if (evt.lengthComputable) {
-                            var percentComplete =
-                                (evt.loaded / evt.total) * 100;
-                            $("div.progress > div.progress-bar").css({
-                                width: percentComplete + "%"
-                            });
-                        }
-                    },
-                    false
-                );
-                return xhr;
-            },
-            success: result => {
+        $.getJSON("https://restcountries.eu/rest/v2/all")
+            .done((result) => {
+                this.isDataLoaded = true;
                 this.countries = result;
                 this.currencyCodes = this.getCurrencyCode(this.countries);
                 this.bindCurrencyCodeDropdownOnUI(this.currencyCodes);
@@ -83,21 +81,8 @@ class Countries {
                 this.bindCallingCodeDropdownOnUI(this.callingCodes);
 
                 this.bindOnUI(this.countries);
-            }
-        });
-
-        // $.getJSON("https://restcountries.eu/rest/v2/all")
-        // .done((result)=>{
-        //     this.countries = result;
-        //     this.currencyCodes = this.getCurrencyCode(this.countries);
-        //     this.bindCurrencyCodeDropdownOnUI(this.currencyCodes);
-
-        //     this.callingCodes = this.getCallingCode(this.countries);
-        //     this.bindCallingCodeDropdownOnUI(this.callingCodes);
-
-        //     this.bindOnUI(this.countries);
-        // })
-        // .fail((error)=>{console.log(error)});
+            })
+            .fail((error) => { console.log(error) });
     }
 
     private bindOnUI(countries: {}[]): void {
