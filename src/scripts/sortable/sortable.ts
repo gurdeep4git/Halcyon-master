@@ -7,6 +7,8 @@ import "../../sass/sortable.scss";
 import * as sortableComponent from "../Handlebars/templates/sortableComponent.hbs";
 import * as noDataComponent from "../Handlebars/templates/noDataComponent.hbs";
 
+import { Popup, PopupOptions } from "../Utilities/UI/Popup/popup";
+
 enum SortType {
     Ascending = 1,
     Descending = 2
@@ -67,6 +69,34 @@ class Sortable {
         $("#search").keyup((e) => this.searchMethod());
         $("#sortNumeric").click(e => this.sortNumeric($(e.target)));
         //$("#sortAlpha").click(e => this.sortAlpha($(e.target)));
+
+        $("#sortableContainer").on("click", ".fa-trash", () => this.confirmDelete())
+    }
+
+
+    private confirmDelete(): void {
+
+        const bodyText = "Are you sure you want to delete?";
+
+        const popupOptions = new PopupOptions();
+        popupOptions.id = "deleteConfirm";
+        popupOptions.title = "Delete";
+        popupOptions.bodyText = bodyText;
+        popupOptions.primaryBtnText = "Yes";
+        popupOptions.secondaryBtnText = "No";
+        popupOptions.onPrimaryBtnClick = () => this.primaryBtnClickHandler();
+        popupOptions.onSecondaryBtnClick = () => this.secondaryBtnClickHandler();
+
+        const popup = new Popup(popupOptions);
+        popup.show();
+    }
+
+    private secondaryBtnClickHandler(): void {
+
+    }
+
+    private primaryBtnClickHandler(): void {
+        console.log("primary btn clicked");
     }
 
     private sortNumeric($element: JQuery<HTMLElement>) {
