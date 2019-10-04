@@ -84,18 +84,17 @@ class Sortable {
         popupOptions.bodyText = bodyText;
         popupOptions.primaryBtnText = "Yes";
         popupOptions.secondaryBtnText = "No";
-        popupOptions.onPrimaryBtnClick = () => this.primaryBtnClickHandler();
-        popupOptions.onSecondaryBtnClick = () => this.secondaryBtnClickHandler();
+        popupOptions.onPrimaryBtnClick = () => this.deleteRow();
+
+        popupOptions.onSecondaryBtnClick = () => {
+            popup.hide();
+        }
 
         const popup = new Popup(popupOptions);
         popup.show();
     }
 
-    private secondaryBtnClickHandler(): void {
-
-    }
-
-    private primaryBtnClickHandler(): void {
+    private deleteRow(): void {
         console.log("primary btn clicked");
     }
 

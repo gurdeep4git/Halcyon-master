@@ -1,12 +1,12 @@
-import "../../sass/main.scss";
-import "../../sass/checkboxapp.scss";
+//import "../../sass/main.scss";
+// import "../../sass/checkboxapp.scss";
 
 import * as HerosCheckbox from "../Handlebars/templates/heroCheckbox.hbs";
 import * as HerosSelectedCheckbox from "../Handlebars/templates/heroSelectedCheckbox.hbs";
 
 export class CheckboxApp {
     private URL: string = "https://jsonplaceholder.typicode.com/users";
-    private SelectedHeros = new Array();
+    private SelectedHeros = new Map();
 
     constructor() {
         this.bindEvents();
@@ -15,6 +15,9 @@ export class CheckboxApp {
     bindEvents(): void {
         $("#allHerosList").on("change", "input[type='checkbox']", e =>
             this.checkboxChangeHandler($(e.target))
+        );
+        $("#selectedHerosList").on("change", "input[type='checkbox']", e =>
+            this.selectedCheckboxChangeHandler($(e.target))
         );
     }
 
@@ -28,24 +31,40 @@ export class CheckboxApp {
     }
 
     bindHerosOnUI(allHeros: any) {
-        $("#allHerosList").append(HerosCheckbox(allHeros));
+        $("#allHerosList").html(HerosCheckbox(allHeros));
     }
 
     checkboxChangeHandler($element: JQuery<HTMLElement>) {
-        let selectedHeroObj = {};
+        const isChecked = $element.prop("checked");
         const id = this.extractID($element);
         const name = this.extractName($element);
-        selectedHeroObj = {
-            id: id,
-            name: name
-        };
-        this.SelectedHeros.push(selectedHeroObj);
-        console.log(this.SelectedHeros);
-        this.bindSelectedHerosOnUI(this.SelectedHeros);
+        if(isChecked){
+            this.SelectedHeros.set(id,{id,name});
+        }
+        else{
+            this.SelectedHeros.delete(id);
+        }
+        const herosArr = this.getArrayFromMap(this.SelectedHeros);
+        this.bindSelectedHerosOnUI(herosArr);
+    }
+
+    selectedCheckboxChangeHandler($element: JQuery<HTMLElement>){
+        const id = this.extractID($element);
+        this.SelectedHeros.delete(id);
+        $element.parent('li').remove();
+        this.updateAllHerosUI(id);
+    }
+
+    updateAllHerosUI(id: number) {
+        $("#allHerosList").find("#allHero_"+ id).prop("checked",false);
+    }
+
+    getArrayFromMap(SelectedHeros:any) {
+        return Array.from(SelectedHeros.values());
     }
 
     bindSelectedHerosOnUI(SelectedHeros: any[]) {
-        $("#selectedHerosList").append(HerosSelectedCheckbox(SelectedHeros));
+        $("#selectedHerosList").html(HerosSelectedCheckbox(SelectedHeros));
     }
 
     extractName($element: JQuery<HTMLElement>): string {

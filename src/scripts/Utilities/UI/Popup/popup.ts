@@ -14,6 +14,11 @@ export class Popup {
     private init(config: PopupOptions): void {
         $('body').append(popupTemplate(config));
         this.$popupElement = $(`#${config.id}`);
+
+        //Register Click Events
+        this.$popupElement.on('click', "#btnPrimary", () => config.onPrimaryBtnClick(this.$popupElement));
+        this.$popupElement.on('click', "#btnSecondary", () => config.onSecondaryBtnClick(this.$popupElement));
+
     }
 
     show(): void {
