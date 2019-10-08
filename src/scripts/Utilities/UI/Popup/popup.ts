@@ -2,8 +2,6 @@ import * as popupTemplate from "../../../Handlebars/templates/UI/Popup/popup.hbs
 import "bootstrap/js/dist/modal";
 
 export class Popup {
-
-    private id: string;
     private $popupElement: JQuery<HTMLElement>;
 
     constructor(config: PopupOptions) {
@@ -12,13 +10,25 @@ export class Popup {
     }
 
     private init(config: PopupOptions): void {
-        $('body').append(popupTemplate(config));
+        $("body").append(popupTemplate(config));
         this.$popupElement = $(`#${config.id}`);
 
         //Register Click Events
-        this.$popupElement.on('click', "#btnPrimary", () => config.onPrimaryBtnClick(this.$popupElement));
-        this.$popupElement.on('click', "#btnSecondary", () => config.onSecondaryBtnClick(this.$popupElement));
+        this.$popupElement.on("click", "#btnPrimary", () =>
+            config.primaryBtnCallback(this.$popupElement)
+        );
 
+        this.$popupElement.on("click", "#btnSecondary", () =>
+            config.secondaryBtnCallback(this.$popupElement)
+        );
+
+        // config.secondaryBtnCallback !== null
+        //     ? this.$popupElement.on("click", "#btnSecondary", () =>
+        //           config.secondaryBtnCallback(this.$popupElement)
+        //       )
+        //     : this.$popupElement.on("click", "#btnSecondary", () =>
+        //           this.hide()
+        //       );
     }
 
     show(): void {
@@ -29,9 +39,10 @@ export class Popup {
         this.$popupElement.modal("hide");
         $(".modal-backdrop").remove();
         this.$popupElement.remove();
-        $("body").removeClass("modal-open").attr("style", "padding-right:0");
+        $("body")
+            .removeClass("modal-open")
+            .attr("style", "padding-right:0");
     }
-
 }
 
 export class PopupOptions {
@@ -44,6 +55,6 @@ export class PopupOptions {
     secondaryBtnText: string;
     onlyPrimaryBtnRequired: boolean = false;
 
-    onPrimaryBtnClick: ($popup: JQuery<HTMLElement>) => void = null;
-    onSecondaryBtnClick: ($popup: JQuery<HTMLElement>) => void = null;
+    primaryBtnCallback: ($popup: JQuery<HTMLElement>) => void = null;
+    secondaryBtnCallback: ($popup: JQuery<HTMLElement>) => void = null;
 }

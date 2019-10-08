@@ -15,7 +15,6 @@ enum SortType {
 }
 
 class Sortable {
-
     private readonly MIN_CHAR_FOR_SEARCH: number = 3;
     private CommentsPromise: Promise<Comments[]>;
     private comments: Comments[] = [];
@@ -24,8 +23,7 @@ class Sortable {
         if (JSON.parse(localStorage.getItem("sortedItems")) === null) {
             this.CommentsPromise = this.ajax();
             this.getCommentsAsync();
-        }
-        else {
+        } else {
             this.comments = JSON.parse(localStorage.getItem("sortedItems"));
             this.bindOnUI(this.comments);
         }
@@ -50,8 +48,7 @@ class Sortable {
     private bindOnUI(comments: Comments[]) {
         if (comments.length) {
             $("#sortableContainer").html(sortableComponent(comments));
-        }
-        else {
+        } else {
             $("#sortableContainer").html(noDataComponent());
         }
     }
@@ -66,15 +63,17 @@ class Sortable {
     }
 
     private bindEvents(): void {
-        $("#search").keyup((e) => this.searchMethod());
+        $("#search").keyup(e => this.searchMethod());
         $("#sortNumeric").click(e => this.sortNumeric($(e.target)));
         //$("#sortAlpha").click(e => this.sortAlpha($(e.target)));
 
-        $("#sortableContainer").on("click", ".fa-trash", () => this.confirmDelete())
+        $("#sortableContainer").on("click", ".fa-trash", e =>
+            this.confirmDelete($(e.target))
+        );
     }
 
-
-    private confirmDelete(): void {
+    private confirmDelete($element: JQuery<HTMLElement>): void {
+        const id = $element.data("id");
 
         const bodyText = "Are you sure you want to delete?";
 
@@ -84,24 +83,26 @@ class Sortable {
         popupOptions.bodyText = bodyText;
         popupOptions.primaryBtnText = "Yes";
         popupOptions.secondaryBtnText = "No";
-        popupOptions.onPrimaryBtnClick = () => this.deleteRow();
-
-        popupOptions.onSecondaryBtnClick = () => {
-            popup.hide();
-        }
+        popupOptions.primaryBtnCallback = () => this.deleteRow(id, popup);
+        popupOptions.secondaryBtnCallback = () => popup.hide();
 
         const popup = new Popup(popupOptions);
         popup.show();
     }
 
-    private deleteRow(): void {
-        console.log("primary btn clicked");
+    private deleteRow(id: number, popupRef: Popup): void {
+        $(`#comment_${id}`).remove();
+        popupRef.hide();
     }
 
     private sortNumeric($element: JQuery<HTMLElement>) {
         const $currentSortIcon = $element.find(".icon");
-        $currentSortIcon.toggleClass("fa-sort-numeric-desc fa-sort-numeric-asc");
-        let sortType = $currentSortIcon.hasClass("fa-sort-numeric-desc") ? SortType.Descending : SortType.Ascending;
+        $currentSortIcon.toggleClass(
+            "fa-sort-numeric-desc fa-sort-numeric-asc"
+        );
+        let sortType = $currentSortIcon.hasClass("fa-sort-numeric-desc")
+            ? SortType.Descending
+            : SortType.Ascending;
         const sortedResult = this.performSort($(".card"), sortType);
         const sortedComments = [...sortedResult];
         this.repaintUI(sortedComments);
@@ -121,18 +122,21 @@ class Sortable {
         $.each(sortedComments, (_, comment) => {
             html.push(comment.outerHTML);
         });
-        $("#sortableContainer").html(html.join(''));
+        $("#sortableContainer").html(html.join(""));
     }
 
-    private performSort($elementsToSort: JQuery<HTMLElement>, sortType: SortType) {
+    private performSort(
+        $elementsToSort: JQuery<HTMLElement>,
+        sortType: SortType
+    ) {
         //@ts-ignore
         return $elementsToSort.sort((a, b) => {
             if (sortType === SortType.Ascending) {
-                return +$(a).attr('sort-order') - +$(b).attr('sort-order');
+                return +$(a).attr("sort-order") - +$(b).attr("sort-order");
             } else {
-                return +$(b).attr('sort-order') - +$(a).attr('sort-order');
+                return +$(b).attr("sort-order") - +$(a).attr("sort-order");
             }
-        })
+        });
     }
 
     // private performSortAlpha($elementsToSort: JQuery<HTMLElement>, sortType: SortType) {
@@ -147,14 +151,13 @@ class Sortable {
     //     })
     // }
 
-
     private searchMethod() {
-        let value = (document.getElementById("search") as HTMLInputElement).value;
+        let value = (document.getElementById("search") as HTMLInputElement)
+            .value;
         if (value.length >= this.MIN_CHAR_FOR_SEARCH) {
             const searchedData = this.getSearchedResult(value);
             this.bindOnUI(searchedData);
-        }
-        else if (value.length === 0) {
+        } else if (value.length === 0) {
             this.bindOnUI(this.comments);
         }
     }
@@ -165,7 +168,5 @@ class Sortable {
 
         return result;
     }
-
-
 }
 new Sortable();
