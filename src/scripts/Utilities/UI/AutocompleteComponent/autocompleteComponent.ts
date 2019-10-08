@@ -33,6 +33,21 @@ export class AutocompleteComponent {
         this.$currentAutocompleteComponentInput.on("keyup", () =>
             this.onSearch()
         );
+
+        // this.$currentAutocompleteComponentInput.on("blur", () =>
+        //     this.$currentAutocompleteComponentList.hide()
+        // );
+
+        this.$currentAutocompleteComponentList.on(
+            "click",
+            ".autocomplete-items",
+            e => this.onItemSelection($(e.target))
+        );
+    }
+
+    private onItemSelection($element: JQuery<HTMLElement>): void {
+        this.$currentAutocompleteComponentInput.val($element.text());
+        this.$currentAutocompleteComponentList.hide();
     }
 
     private onSearch(): void {
