@@ -1,7 +1,5 @@
-<div class="autocomplete-list-container" id="{{id}}AutocompleteList">
-    <ul>
-        {{#each data}}
-        <li id={{this.id}}>{{this.title}}</li>
-        {{/each}}
-    </ul>
-</div>
+<ul>
+    {{#each this}}
+    <li id={{this.id}}>{{this.title}}</li>
+    {{/each}}
+</ul>
