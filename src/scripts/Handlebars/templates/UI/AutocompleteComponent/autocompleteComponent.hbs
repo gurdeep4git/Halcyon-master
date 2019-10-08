@@ -1,0 +1,10 @@
+<div class="autocomplete-component" id="{{id}}Autocomplete">
+    <input class="autocomplete-input" type="text" id="{{id}}AutocompleteInput" />
+    <div class="autocomplete-list-container" id="{{id}}AutocompleteList">
+        <ul>
+            {{#each data}}
+            <li id={{this.id}}>{{this.title}}</li>
+            {{/each}}
+        </ul>
+    </div>
+</div>

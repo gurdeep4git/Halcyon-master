@@ -18,7 +18,8 @@ const config = {
         heros: "./src/scripts/Heros/heros-app.ts",
         localstorage: "./src/scripts/LocalStorage/localstorage.ts",
         checkboxapp: "./src/scripts/CheckboxApp/checkboxapp.ts",
-        sortable: "./src/scripts/sortable/sortable.ts"
+        sortable: "./src/scripts/sortable/sortable.ts",
+        autocomplete: "./src/scripts/autocomplete/autocomplete.ts"
     },
     devtool: "inline-source-map",
     resolve: {
