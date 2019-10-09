@@ -20,6 +20,7 @@ class Autocomplete {
             const autocompleteComponentConfig = new AutocompleteComponentConfig();
             autocompleteComponentConfig.id = id;
             autocompleteComponentConfig.data = this.data;
+            autocompleteComponentConfig.propToSearch = "title";
 
             const autocompleteComponent = new AutocompleteComponent();
             autocompleteComponent.init(autocompleteComponentConfig);
