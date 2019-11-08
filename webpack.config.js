@@ -19,7 +19,8 @@ const config = {
         localstorage: "./src/scripts/LocalStorage/localstorage.ts",
         checkboxapp: "./src/scripts/CheckboxApp/checkboxapp.ts",
         sortable: "./src/scripts/sortable/sortable.ts",
-        autocomplete: "./src/scripts/autocomplete/autocomplete.ts"
+        autocomplete: "./src/scripts/autocomplete/autocomplete.ts",
+        chart: "./src/scripts/Chart/chart.ts"
     },
     devtool: "inline-source-map",
     resolve: {

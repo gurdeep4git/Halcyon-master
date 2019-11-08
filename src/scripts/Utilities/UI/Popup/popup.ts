@@ -21,14 +21,6 @@ export class Popup {
         this.$popupElement.on("click", "#btnSecondary", () =>
             config.secondaryBtnCallback(this.$popupElement)
         );
-
-        // config.secondaryBtnCallback !== null
-        //     ? this.$popupElement.on("click", "#btnSecondary", () =>
-        //           config.secondaryBtnCallback(this.$popupElement)
-        //       )
-        //     : this.$popupElement.on("click", "#btnSecondary", () =>
-        //           this.hide()
-        //       );
     }
 
     show(): void {
