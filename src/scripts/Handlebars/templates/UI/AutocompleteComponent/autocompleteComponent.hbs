@@ -1,5 +1,7 @@
 <ul>
     {{#each this}}
     <li class="autocomplete-items" id={{this.id}}>{{this.title}}</li>
+    {{else}}
+    <span>Not found</span>
     {{/each}}
 </ul>
