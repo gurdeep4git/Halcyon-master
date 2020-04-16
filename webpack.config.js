@@ -20,7 +20,8 @@ const config = {
         checkboxapp: "./src/scripts/CheckboxApp/checkboxapp.ts",
         sortable: "./src/scripts/sortable/sortable.ts",
         autocomplete: "./src/scripts/autocomplete/autocomplete.ts",
-        chart: "./src/scripts/Chart/chart.ts"
+        chart: "./src/scripts/Chart/chart.ts",
+        bubblechart: "./src/scripts/Chart/bubblechart.ts"
     },
     devtool: "inline-source-map",
     resolve: {

@@ -38,7 +38,7 @@ class MyChart {
                 text: undefined
             },
             xAxis: {
-                //max: 50,
+                max: 0.2,
                 title: {
                     enabled: true,
                     text: 'Significance'
@@ -51,7 +51,7 @@ class MyChart {
                 minorGridLineWidth: 0,
             },
             yAxis: {
-                //max: 0.2,
+                max: 50,
                 title: {
                     text: 'Impact'
                 },
@@ -71,6 +71,14 @@ class MyChart {
                 margin: 20
             },
             plotOptions: {
+                series: {
+                    events: {
+                        legendItemClick: function () {
+                            var series = this.chart.series;
+                            console.log(series);
+                        }
+                    }
+                },
                 scatter: {
                     marker: {
                         radius: 5,
@@ -115,7 +123,7 @@ class MyChart {
                     symbol: "circle"
                 },
                 data: [
-                    [0.08, 20], [0.2, 35]
+                    [0.08, 20], [0.16, 35]
                 ]
 
             }, {
